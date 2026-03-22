@@ -1,0 +1,140 @@
+/* Variables de colores para que sea fácil de editar */
+:root {
+  --tallo: #2e7d32;
+  --hoja: #4caf50;
+  --centro: #5d4037;
+  --petalo: #ffeb3b;
+  --fondo: #1a1a1a;
+}
+
+body {
+  background-color: var(--fondo);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Crece desde abajo */
+}
+
+/* --- 1. ANIMACIÓN DEL TALLO --- */
+.tallo {
+  width: 12px;
+  height: 0;
+  background: var(--tallo);
+  position: relative;
+  border-radius: 6px;
+  margin-bottom: 80px; /* Espacio para el mensaje */
+  animation: crecer-tallo 2s ease-out forwards;
+}
+
+@keyframes crecer-tallo {
+  to { height: 300px; }
+}
+
+/* --- 2. ANIMACIÓN DE LAS HOJAS --- */
+.hoja {
+  width: 50px;
+  height: 25px;
+  background: var(--hoja);
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+  animation: aparecer 0.8s ease-out 2s forwards;
+}
+
+.hoja.derecha {
+  border-radius: 50px 0;
+  left: 10px;
+  top: 100px;
+  transform-origin: left;
+}
+
+.hoja.izquierda {
+  border-radius: 0 50px;
+  right: 10px;
+  top: 180px;
+  transform-origin: right;
+}
+
+/* --- 3. ANIMACIÓN DEL CENTRO --- */
+.centro {
+  width: 65px;
+  height: 65px;
+  background: var(--centro);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 370px; /* Ajustado para tapar la punta del tallo */
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0);
+  animation: aparecer 0.8s ease-out 2.8s forwards;
+}
+
+/* --- 4. ANIMACIÓN DE LOS PÉTALOS --- */
+.petalos-container {
+  position: absolute;
+  bottom: 375px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.petalo {
+  width: 45px;
+  height: 85px;
+  background: var(--petalo);
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0;
+  transform-origin: center bottom;
+  /* El efecto de brillo que se veía en tu imagen */
+  box-shadow: 0 0 15px rgba(255, 235, 59, 0.5); 
+  animation: aparecer-petalo 1s ease-out 3.5s forwards;
+}
+
+/* Rotaciones para formar la flor circular */
+.p1 { transform: rotate(0deg) translateY(-40px); }
+.p2 { transform: rotate(45deg) translateY(-40px); }
+.p3 { transform: rotate(90deg) translateY(-40px); }
+.p4 { transform: rotate(135deg) translateY(-40px); }
+.p5 { transform: rotate(180deg) translateY(-40px); }
+.p6 { transform: rotate(225deg) translateY(-40px); }
+.p7 { transform: rotate(270deg) translateY(-40px); }
+.p8 { transform: rotate(315deg) translateY(-40px); }
+
+/* --- MENSAJE FINAL --- */
+.mensaje {
+  color: white;
+  font-size: 2.5rem;
+  opacity: 0;
+  position: absolute;
+  bottom: 40px;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+  animation: aparecer 1.5s ease-out 4.5s forwards;
+}
+
+/* --- KEYFRAMES GENERALES --- */
+@keyframes aparecer {
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes aparecer-petalo {
+  0% { opacity: 0; transform: scale(0) rotate(inherit); }
+  100% { opacity: 1; transform: scale(1) rotate(inherit); }
+}
